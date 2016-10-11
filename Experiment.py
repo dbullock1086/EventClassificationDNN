@@ -94,7 +94,7 @@ MyModel.MetaData["Config"]=Config
 print "Compiling the Model... this will take a while."
 
 optimizer="sgd"
-MyModel.Compile(Loss=loss, Optimizer=optimizer)
+MyModel.Compile(loss=loss, Optimizer=optimizer)
 
 model=MyModel.Model
 # Print the summary
