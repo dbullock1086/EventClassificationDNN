@@ -57,8 +57,8 @@ Test_X=Test_X[SelectedFields[VarSet]]
 Train_X_S=Train_X
 
 # Now Lets Simplify the structure (Note this requires everything to be a float)
-Train_X=Train_X.view(np.float32).reshape(Train_X.shape + (-1,))
-Test_X=Test_X.view(np.float32).reshape(Test_X.shape + (-1,))
+Train_X=Train_X.view(float).reshape(Train_X.shape + (-1,))
+Test_X=Test_X.view(float).reshape(Test_X.shape + (-1,))
 
 # Protect against divide by zero! 
 Train_X=np.nan_to_num(Train_X)
