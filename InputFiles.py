@@ -17,7 +17,8 @@ Files=[]
 
 
 for InputData in InputFiles:
-    InputData="/afs/cern.ch/work/a/afarbin/public/RestFrames-llbbMET/"+InputData
+    InputData="/scratch/data-backup/afarbin/crogan/h5/"+InputData
+    #InputData="/afs/cern.ch/work/a/afarbin/public/RestFrames-llbbMET/"+InputData
     Files+= [
         [InputData, "AA_Gen"],
         [InputData, "AB_Gen"],
