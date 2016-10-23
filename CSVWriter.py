@@ -11,9 +11,9 @@ def CSVWriter (filename, X, Y, R):
     for i in xrange(0, R.shape[1]): colnames.append('predict_' + str(i))
 
     f = open(filename, 'w')
-    f.write(':'.join(colnames) + '\n')
+    f.write(','.join(colnames) + '\n')
 
-    X0 = X.view(np.float32).reshape(X.shape + (-1,))
+    X0 = X.view(float).reshape(X.shape + (-1,))
     #YI = np.nonzero(Y)[1] # DB: why is this needed?                                                                         
     out = np.concatenate((X0,Y,R), axis=1)
 

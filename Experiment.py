@@ -57,6 +57,7 @@ Test_X=Test_X[SelectedFields[VarSet]]
 Train_X_S=Train_X
 
 # Now Lets Simplify the structure (Note this requires everything to be a float)
+# If you get an error that the input size isn't right, try changing float below to float32 or float64
 Train_X=Train_X.view(float).reshape(Train_X.shape + (-1,))
 Test_X=Test_X.view(float).reshape(Test_X.shape + (-1,))
 
@@ -94,7 +95,7 @@ MyModel.MetaData["Config"]=Config
 print "Compiling the Model... this will take a while."
 
 optimizer="sgd"
-MyModel.Compile(loss=loss, optimizer=optimizer)
+MyModel.Compile(Loss=loss, Optimizer=optimizer)
 
 model=MyModel.Model
 # Print the summary
