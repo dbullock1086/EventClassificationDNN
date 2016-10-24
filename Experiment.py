@@ -7,7 +7,7 @@ import numpy as np
 execfile("EventClassificationDNN/Arguments.py")
 
 # Now load the Hyperparameters
-execfile(ConfigFile)
+execfile(ConfigFile) # DB: this "imports" the Samples, FieldGroups, and SelectedFields
 
 if "Config" in dir():
     for a in Config:
@@ -15,13 +15,13 @@ if "Config" in dir():
 
 # Load the Data
 from EventClassificationDNN.MultiClassTools import *
-from EventClassificationDNN.InputFiles import Samples
+#from EventClassificationDNN.InputFiles import Samples
 
 (Train_X, Train_Y), (Test_X, Test_Y), ClassIndex=LoadData(Samples,.1,MaxEvents=MaxEvents)
 
 # Select Variables To use in training
 # To get the field names, just look at Fields=Train_X.dtype.names
-from EventClassificationDNN.InputVars import FieldGroups, SelectedFields
+#from EventClassificationDNN.InputVars import FieldGroups, SelectedFields
 
 # Keep the original data before renomalizing... will use this in output
 Train_X0=Train_X.copy()
