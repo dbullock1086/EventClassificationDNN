@@ -1,4 +1,4 @@
-#!/usr/bin/env python                                                                                                        
+#!/usr/bin/env python
 
 import numpy as np
 
@@ -14,7 +14,6 @@ def CSVWriter (filename, X, Y, R):
     f.write(','.join(colnames) + '\n')
 
     X0 = X.view(float).reshape(X.shape + (-1,))
-    #YI = np.nonzero(Y)[1] # DB: why is this needed?                                                                         
     out = np.concatenate((X0,Y,R), axis=1)
 
     np.savetxt(f, out, delimiter=',')
