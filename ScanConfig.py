@@ -57,21 +57,22 @@ FieldGroups = [
     # pseudorapidity
     ['L1_eta', 'L2_eta', 'B1_eta', 'B2_eta'],
 
-    # decay angle
-    ['cosPP_AA', 'cosPa_AA', 'cosPb_AA', 'cosCa_AA', 'cosCb_AA',
-     'cosPP_AB', 'cosPa_AB', 'cosPb_AB', 'cosCa_AB', 'cosCb_AB',
-     'cosPP_BA', 'cosPa_BA', 'cosPb_BA', 'cosCa_BA', 'cosCb_BA',
-     'cosPP_BB', 'cosPa_BB', 'cosPb_BB', 'cosCa_BB', 'cosCb_BB'],
+    # decay angles by frame
+    ['cosPP_AA', 'cosPP_AB', 'cosPP_BA', 'cosPP_BB'],
+    ['cosPa_AA', 'cosPa_AB', 'cosPa_BA', 'cosPa_BB'],
+    ['cosPb_AA', 'cosPb_AB', 'cosPb_BA', 'cosPb_BB'],
+    ['cosCa_AA', 'cosCa_AB', 'cosCa_BA', 'cosCa_BB'],
+    ['cosCb_AA', 'cosCb_AB', 'cosCb_BA', 'cosCb_BB'],
 
-    # separation angle
-    ['dphi_PP_Pa_AA', 'dphi_PP_Pb_AA', 'dphi_Pa_Ca_AA', 'dphi_Pb_Cb_AA',
-     'dphi_PP_Pa_AB', 'dphi_PP_Pb_AB', 'dphi_Pa_Ca_AB', 'dphi_Pb_Cb_AB',
-     'dphi_PP_Pa_BA', 'dphi_PP_Pb_BA', 'dphi_Pa_Ca_BA', 'dphi_Pb_Cb_BA',
-     'dphi_PP_Pa_BB', 'dphi_PP_Pb_BB', 'dphi_Pa_Ca_BB', 'dphi_Pb_Cb_BB'],
+    # separation angles by frame 
+    ['dphi_PP_Pa_AA', 'dphi_PP_Pa_AB', 'dphi_PP_Pa_BA', 'dphi_PP_Pa_BB'],
+    ['dphi_PP_Pb_AA', 'dphi_PP_Pb_AB', 'dphi_PP_Pb_BA', 'dphi_PP_Pb_BB'],
+    ['dphi_Pa_Ca_AA', 'dphi_Pa_Ca_AB', 'dphi_Pa_Ca_BA', 'dphi_Pa_Ca_BB'], 
+    ['dphi_Pb_Cb_AA', 'dphi_Pb_Cb_AB', 'dphi_Pb_Cb_BA', 'dphi_Pb_Cb_BB'],
 ]
 
 SelectedFields = [
-    # all reconstruction
+    # all reconstruction info
     ['mP', 'mC', 'mX',
      'METx', 'METy',
      'L1_M', 'L1_pT', 'L1_phi', 'L1_eta',
@@ -126,6 +127,11 @@ SelectedFields = [
      'dphi_PP_Pa_AB', 'dphi_PP_Pb_AB', 'dphi_Pa_Ca_AB', 'dphi_Pb_Cb_AB',
      'dphi_PP_Pa_BA', 'dphi_PP_Pb_BA', 'dphi_Pa_Ca_BA', 'dphi_Pb_Cb_BA',
      'dphi_PP_Pa_BB', 'dphi_PP_Pb_BB', 'dphi_Pa_Ca_BB', 'dphi_Pb_Cb_BB'],
+
+    # single RJ reconstruction
+    ['MPP_AA', 'Eb_a_AA', 'Eb_b_AA', 'El_a_AA', 'El_b_AA',
+     'cosPP_AA', 'cosPa_AA', 'cosPb_AA', 'cosCa_AA', 'cosCb_AA',
+     'dphi_PP_Pa_AA', 'dphi_PP_Pb_AA', 'dphi_Pa_Ca_AA', 'dphi_Pb_Cb_AA'],
 ]
 
 Name = 'TrainedModel'
