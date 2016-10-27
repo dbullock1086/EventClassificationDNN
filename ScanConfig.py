@@ -45,7 +45,7 @@ FieldGroups = [
     ['mP', 'mC', 'mX',
      'METx', 'METy',
      'L1_M', 'L2_M', 'B1_M', 'B2_M',
-     'L1_pT', 'L2_pT', 'B1_pT', 'B2_pT'
+     'L1_pT', 'L2_pT', 'B1_pT', 'B2_pT',
      'MPP_AA', 'Eb_a_AA', 'Eb_b_AA', 'El_a_AA', 'El_b_AA',
      'MPP_AB', 'Eb_a_AB', 'Eb_b_AB', 'El_a_AB', 'El_b_AB',
      'MPP_BA', 'Eb_a_BA', 'Eb_b_BA', 'El_a_BA', 'El_b_BA',
