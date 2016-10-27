@@ -1,75 +1,47 @@
 # Analysis
 import numpy as np
+import matplotlib as mpl
+mpl.use('pdf')
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc    
 
-def ClassificationAnalysis(MyModel,Test_X,Test_Y,BatchSize, SignalClassIndex=5):
-    import matplotlib as mpl
-    mpl.use('pdf')
-    import matplotlib.pyplot as plt
+def ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, SignalClassIndex=5):
+    print 'Prediction Analysis.'
+    result = MyModel.Model.predict (Test_X, batch_size=BatchSize)
 
-    from sklearn.metrics import roc_curve, auc    
+    fpr, tpr, _ = roc_curve (Test_Y[:,SignalClassIndex], 
+                             result[:,SignalClassIndex])
+    roc_auc = auc (fpr, tpr)
 
-    print "Prediction Analysis."
-    result = MyModel.Model.predict(Test_X, batch_size=BatchSize)
-    
-    fpr, tpr, _ = roc_curve(Test_Y[:,SignalClassIndex], 
-                            result[:,SignalClassIndex])
-    roc_auc = auc(fpr, tpr)    
-    
     lw=2
 
-    plt.plot(fpr,tpr,color='darkorange',
-             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
+    plt.plot (fpr,tpr,color='darkorange',
+              lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
 
-    print "ROC AUC: ",roc_auc
-
-    plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-
-    plt.legend(loc="lower right")
-
-    plt.savefig(MyModel.OutDir+"/ROC.pdf")
+    print 'ROC' SignalClassIndex, 'AUC:', roc_auc
+    pass
 
 
-mpColors=["blue","green","red","cyan","magenta","yellow","black","white"]
+mpColors = ['red', 'darkorange', 'lawngreen', 'green', 'lightseagreen', 'cyan', 'royalblue', 'blue', 'blueviolet', 'magenta', 'hotpink']
 
-def MultiClassificationAnalysis(MyModel,Test_X,Test_Y,BatchSize):
-    import matplotlib as mpl
-    mpl.use('pdf')
-    import matplotlib.pyplot as plt
-
-    from sklearn.metrics import roc_curve, auc    
-
-    print "Prediction Analysis."
-    result = MyModel.Model.predict(Test_X, batch_size=BatchSize)
+def MultiClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize):
+    print 'Prediction Analysis.'
+    result = MyModel.Model.predict (Test_X, batch_size=BatchSize)
     
-    NClasses=Test_Y.shape[1]
+    NClasses = Test_Y.shape[1]
 
-    for ClassIndex in xrange(0,NClasses):
-        fpr, tpr, _ = roc_curve(Test_Y[:,ClassIndex], 
-                                result[:,ClassIndex])
-        roc_auc = auc(fpr, tpr)    
-    
-        lw=2
+    for ClassIndex in xrange(NClasses):
+        ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, ClassIndex)
+        pass
 
-        plt.plot(fpr,tpr,color=mpColors[ClassIndex],
-                 lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
+    plt.plot ([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    plt.xlim ([0.0, 1.0])
+    plt.ylim ([0.0, 1.05])
 
-        print "ROC ",ClassIndex," AUC: ",roc_auc
+    plt.xlabel ('False Positive Rate')
+    plt.ylabel ('True Positive Rate')
 
-        plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-        plt.xlim([0.0, 1.0])
-        plt.ylim([0.0, 1.05])
-
-        plt.xlabel('False Positive Rate')
-        plt.ylabel('True Positive Rate')
-
-        plt.legend(loc="lower right")
+    plt.legend (loc='lower right')
         
-
-    plt.savefig(MyModel.OutDir+"/ROC.pdf")
-
+    plt.savefig (MyModel.OutDir + '/ROC.pdf')
     return result
