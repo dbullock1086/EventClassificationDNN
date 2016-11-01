@@ -13,7 +13,7 @@ for InputData in InputFiles:
     InputData = '/home/dbullock/samples' + InputData
     #InputData = '/afs/cern.ch/work/d/dbullock/public/samples/dnn-tutorial/' + InputData
     Files += [ [InputData, 'Zto2LOS'],
-               [InputData, '2LOS'] ]
+               [InputData, 'Rndm2LOS'] ]
     pass
 
 Samples = []
