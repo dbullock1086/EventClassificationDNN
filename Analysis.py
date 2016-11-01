@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc    
 
 def ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, SignalClassIndex=5):
-    print 'Prediction Analysis.'
     result = MyModel.Model.predict (Test_X, batch_size=BatchSize)
 
     fpr, tpr, _ = roc_curve (Test_Y[:,SignalClassIndex], 
@@ -33,6 +32,8 @@ def MultiClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize):
     for ClassIndex in xrange(NClasses):
         ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, ClassIndex)
         pass
+
+    lw=2
 
     plt.plot ([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
     plt.xlim ([0.0, 1.0])
