@@ -10,7 +10,7 @@ InputFiles = ['Wlnu.h5']
 # Select datasets (formerly TTrees in original ROOT file)
 Files = []
 for InputData in InputFiles:
-    InputData = '/home/dbullock/samples' + InputData
+    InputData = '/home/dbullock/samples/' + InputData
     #InputData = '/afs/cern.ch/work/d/dbullock/public/samples/dnn-tutorial/' + InputData
     Files += [ [InputData, 'Wto1LMET'],
                [InputData, 'Rndm1LMET'] ]
