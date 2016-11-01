@@ -18,7 +18,7 @@ def ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, SignalClassIndex
     plt.plot (fpr,tpr,color='darkorange',
               lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
 
-    print 'ROC' SignalClassIndex, 'AUC:', roc_auc
+    print 'ROC', SignalClassIndex, 'AUC:', roc_auc
     pass
 
 
