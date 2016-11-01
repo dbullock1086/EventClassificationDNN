@@ -25,7 +25,7 @@ for F in Files: Samples.append(F)
 FieldGroups = [
     # energy scale
     ['L_pT', 'L_E',
-     'MET_mag']
+     'MET_mag'],
 
     # transverse angle
     ['L_phi', 'MET_phi'],
