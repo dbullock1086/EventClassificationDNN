@@ -5,6 +5,8 @@ mpl.use('pdf')
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc    
 
+mpColors = ['red', 'darkorange', 'lawngreen', 'green', 'lightseagreen', 'cyan', 'royalblue', 'blue', 'blueviolet', 'magenta', 'hotpink']
+
 def ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, SignalClassIndex=5):
     result = MyModel.Model.predict (Test_X, batch_size=BatchSize)
 
@@ -14,14 +16,12 @@ def ClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize, SignalClassIndex
 
     lw=2
 
-    plt.plot (fpr,tpr,color='darkorange',
+    plt.plot (fpr,tpr,color=mpColors[SignalClassIndex],
               lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
 
     print 'ROC', SignalClassIndex, 'AUC:', roc_auc
     pass
 
-
-mpColors = ['red', 'darkorange', 'lawngreen', 'green', 'lightseagreen', 'cyan', 'royalblue', 'blue', 'blueviolet', 'magenta', 'hotpink']
 
 def MultiClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize):
     print 'Prediction Analysis.'
