@@ -10,8 +10,7 @@ InputFiles = ['Zll.h5']
 # Select datasets (formerly TTrees in original ROOT file)
 Files = []
 for InputData in InputFiles:
-    InputData = '/home/dbullock/samples/' + InputData
-    #InputData = '/afs/cern.ch/work/d/dbullock/public/samples/dnn-tutorial/' + InputData
+    InputData = os.getenv('SampleDir') + '/' + InputData
     Files += [ [InputData, 'Zto2LOS'],
                [InputData, 'Rndm2LOS'] ]
     pass
@@ -50,9 +49,10 @@ Config = {'MaxEvents':    50000,
           'Nesterov':        0.,
           'WeightInitialization':"'normal'"}
 
-Params = {'Width': [128],
-          'Depth':   [2],
-          'loss': ["'categorical_crossentropy'"]}
+#Params = {'Width': [8],
+#          'Depth': [2],
+#          'loss': ["'categorical_crossentropy'"]}
+Params = {'Depth': [2]}
 
 PS = Permutator (Params)
 Combos = PS.Permutations ()
@@ -76,10 +76,3 @@ if i < 0:
 print 'Picked combination:', i
 
 for k in Combos[i]: Config[k] = Combos[i][k]
-
-#for MetaData in Params:
-#    val = str(Config[MetaData]).replace ('"','')
-#    Name += '_' + val
-#    pass
-
-#print 'Model Filename:', Name
