@@ -60,6 +60,8 @@ Test_X = Test_X[SelectedFields[VarSet]]
 # If you get an error that the input size isn't right, try changing float below to float32 or float64
 Train_X = Train_X.view(np.float32).reshape(Train_X.shape + (-1,))
 Test_X = Test_X.view(np.float32).reshape(Test_X.shape + (-1,))
+#Train_X = Train_X.view(float).reshape(Train_X.shape + (-1,))
+#Test_X = Test_X.view(float).reshape(Test_X.shape + (-1,))
 
 # Protect against divide by zero! 
 Train_X = np.nan_to_num(Train_X)

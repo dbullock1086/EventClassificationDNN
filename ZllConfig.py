@@ -41,7 +41,7 @@ SelectedFields = [
 Name = 'ZllModel'
 
 Config = {'MaxEvents':    50000,
-          'Epochs':       10000,
+          'Epochs':        1000,
           'BatchSize':   2048*8,
           'LearningRate': 0.005,
           'Decay':           0.,
