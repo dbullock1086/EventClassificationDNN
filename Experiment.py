@@ -58,8 +58,8 @@ Test_X = Test_X[SelectedFields[VarSet]]
 
 # Now Lets Simplify the structure (Note this requires everything to be a float)
 # If you get an error that the input size isn't right, try changing float below to float32 or float64
-Train_X = Train_X.view(float).reshape(Train_X.shape + (-1,))
-Test_X = Test_X.view(float).reshape(Test_X.shape + (-1,))
+Train_X = Train_X.view(np.float32).reshape(Train_X.shape + (-1,))
+Test_X = Test_X.view(np.float32).reshape(Test_X.shape + (-1,))
 
 # Protect against divide by zero! 
 Train_X = np.nan_to_num(Train_X)
@@ -70,6 +70,7 @@ N_Inputs = len(SelectedFields[VarSet])
 Width = sum ( [ len(FieldGroups[i]) for i in xrange(len(FieldGroups)) ] )
 N_Classes = np.shape(Train_Y)[1]
 print 'N Inputs:', N_Inputs
+print 'Width:', Width
 print 'N Classes:', N_Classes
 
 # Now Build the Model

@@ -150,10 +150,8 @@ Config = {'MaxEvents':    50000,
           'Nesterov':        0.,
           'WeightInitialization':"'normal'"}
 
-#Params = {'Width': [128],
-#          'Depth':   [2],
-#          'loss': ["'categorical_crossentropy'"]}
-Params = {'Depth': [2]}
+Params = {'Depth': [2],
+          'loss': ["'categorical_crossentropy'"]}
 
 PS = Permutator (Params)
 Combos = PS.Permutations ()
