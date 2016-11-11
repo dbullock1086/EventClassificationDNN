@@ -71,11 +71,11 @@ FieldGroups = [
 SelectedFields = [
     # all observables
     ['mP', 'mC', 'mX',
+     'METx', 'METy',
      'L1_pT', 'L1_eta', 'L1_phi', 'L1_M',
      'L2_pT', 'L2_eta', 'L2_phi', 'L2_M',
      'B1_pT', 'B1_eta', 'B1_phi', 'B1_M',
      'B2_pT', 'B2_eta', 'B2_phi', 'B2_M',
-     'METx', 'METy',
      'MPP_AA', 'Eb_a_AA', 'Eb_b_AA', 'El_a_AA', 'El_b_AA',
      'MPP_AB', 'Eb_a_AB', 'Eb_b_AB', 'El_a_AB', 'El_b_AB',
      'MPP_BA', 'Eb_a_BA', 'Eb_b_BA', 'El_a_BA', 'El_b_BA',
@@ -90,19 +90,19 @@ SelectedFields = [
      'dphi_PP_Pa_BB', 'dphi_PP_Pb_BB', 'dphi_Pa_Ca_BB', 'dphi_Pb_Cb_BB'],
 
     # detector reconstruction
-    ['L1_pT', 'L1_eta', 'L1_phi', 'L1_M',
-     'L2_pT', 'L2_eta', 'L2_phi', 'L2_M',
-     'B1_pT', 'B1_eta', 'B1_phi', 'B1_M',
-     'B2_pT', 'B2_eta', 'B2_phi', 'B2_M',
-     'METx', 'METy'],
-
-    # physics reconstruction
-    ['mP', 'mC', 'mX',
+    ['METx', 'METy',
      'L1_pT', 'L1_eta', 'L1_phi', 'L1_M',
      'L2_pT', 'L2_eta', 'L2_phi', 'L2_M',
      'B1_pT', 'B1_eta', 'B1_phi', 'B1_M',
-     'B2_pT', 'B2_eta', 'B2_phi', 'B2_M',
-     'METx', 'METy'],
+     'B2_pT', 'B2_eta', 'B2_phi', 'B2_M'],
+
+    # physics reconstruction
+    ['mP', 'mC', 'mX',
+     'METx', 'METy',
+     'L1_pT', 'L1_eta', 'L1_phi', 'L1_M',
+     'L2_pT', 'L2_eta', 'L2_phi', 'L2_M',
+     'B1_pT', 'B1_eta', 'B1_phi', 'B1_M',
+     'B2_pT', 'B2_eta', 'B2_phi', 'B2_M'],
 
     # recursive jigsaw reconstruction
     ['MPP_AA', 'Eb_a_AA', 'Eb_b_AA', 'El_a_AA', 'El_b_AA',
@@ -150,7 +150,8 @@ Config = {'MaxEvents':    50000,
           'Nesterov':        0.,
           'WeightInitialization':"'normal'"}
 
-Params = {'Depth': [2],
+Params = {'Width': [1024],
+          'Depth': [2],
           'loss': ["'categorical_crossentropy'"]}
 
 PS = Permutator (Params)

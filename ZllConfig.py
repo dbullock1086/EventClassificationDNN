@@ -34,8 +34,9 @@ FieldGroups = [
 ]
 
 SelectedFields = [
+    # all variables
     ['LP_pT', 'LP_eta', 'LP_phi', 'LP_E',
-     'LM_pT', 'LM_eta', 'LM_phi', 'LM_E']
+     'LM_pT', 'LM_eta', 'LM_phi', 'LM_E'],
 ]
 
 Name = 'ZllModel'
@@ -49,7 +50,8 @@ Config = {'MaxEvents':    50000,
           'Nesterov':        0.,
           'WeightInitialization':"'normal'"}
 
-Params = {'Depth': [2],
+Params = {'Width': [1024],
+          'Depth': [2],
           'loss': ["'categorical_crossentropy'"]}
 
 PS = Permutator (Params)

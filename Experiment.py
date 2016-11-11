@@ -69,7 +69,7 @@ Test_X = np.nan_to_num(Test_X)
 
 # Get some Inof
 N_Inputs = len(SelectedFields[VarSet])
-Width = sum ( [ len(FieldGroups[i]) for i in xrange(len(FieldGroups)) ] )
+#Width = sum ( [ len(FieldGroups[i]) for i in xrange(len(FieldGroups)) ] )
 N_Classes = np.shape(Train_Y)[1]
 print 'N Inputs:', N_Inputs
 print 'Width:', Width
