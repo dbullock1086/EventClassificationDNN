@@ -55,17 +55,17 @@ FieldGroups = [
     ['L1_phi', 'L2_phi','B1_phi', 'B2_phi'],
 
     # decay angles (by frame)
-    ['cosPP_AA', 'cosPP_AB', 'cosPP_BA', 'cosPP_BB']
-    ['cosPa_AA', 'cosPa_AB', 'cosPa_BA', 'cosPa_BB']
-    ['cosPb_AA', 'cosPb_AB', 'cosPb_BA', 'cosPb_BB']
-    ['cosCa_AA', 'cosCa_AB', 'cosCa_BA', 'cosCa_BB']
-    ['cosCb_AA', 'cosCb_AB', 'cosCb_BA', 'cosCb_BB']
+    ['cosPP_AA', 'cosPP_AB', 'cosPP_BA', 'cosPP_BB'],
+    ['cosPa_AA', 'cosPa_AB', 'cosPa_BA', 'cosPa_BB'],
+    ['cosPb_AA', 'cosPb_AB', 'cosPb_BA', 'cosPb_BB'],
+    ['cosCa_AA', 'cosCa_AB', 'cosCa_BA', 'cosCa_BB'],
+    ['cosCb_AA', 'cosCb_AB', 'cosCb_BA', 'cosCb_BB'],
 
     # separation angles (by frame)
-    ['dphi_PP_Pa_AA', 'dphi_PP_Pa_BB', 'dphi_PP_Pa_AB', 'dphi_PP_Pa_BA']
-    ['dphi_PP_Pb_AA', 'dphi_PP_Pb_BB', 'dphi_PP_Pb_AB', 'dphi_PP_Pb_BA']
-    ['dphi_Pa_Ca_AA', 'dphi_Pa_Ca_BB', 'dphi_Pa_Ca_AB', 'dphi_Pa_Ca_BA']
-    ['dphi_Pb_Cb_AA', 'dphi_Pb_Cb_BB', 'dphi_Pb_Cb_AB', 'dphi_Pb_Cb_BA']
+    ['dphi_PP_Pa_AA', 'dphi_PP_Pa_BB', 'dphi_PP_Pa_AB', 'dphi_PP_Pa_BA'],
+    ['dphi_PP_Pb_AA', 'dphi_PP_Pb_BB', 'dphi_PP_Pb_AB', 'dphi_PP_Pb_BA'],
+    ['dphi_Pa_Ca_AA', 'dphi_Pa_Ca_BB', 'dphi_Pa_Ca_AB', 'dphi_Pa_Ca_BA'],
+    ['dphi_Pb_Cb_AA', 'dphi_Pb_Cb_BB', 'dphi_Pb_Cb_AB', 'dphi_Pb_Cb_BA'],
 ]
 
 SelectedFields = [
