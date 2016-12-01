@@ -1,3 +1,5 @@
+import argparse
+
 # Configuration of this job
 parser = argparse.ArgumentParser()
 parser.add_argument ('-C', '--config', default='EventClassificationDNN/ScanConfig.py')

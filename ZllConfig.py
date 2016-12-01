@@ -1,36 +1,29 @@
-import random
-import getopt
 from DLTools.Permutator import *
-import sys,argparse
 
 #Previously in InputFiles.py
 # Define the Input Files
 InputFiles = ['Zll.h5']
 
 # Select datasets (formerly TTrees in original ROOT file)
-Files = []
+Samples = []
 for InputData in InputFiles:
     InputData = os.getenv('SampleDir') + '/' + InputData
-    Files += [ [InputData, 'Zto2LOS'],
-               [InputData, 'Rndm2LOS'] ]
+    Samples += [ [InputData, 'Zto2LOS'],
+                 [InputData, 'Rndm2LOS'] ]
     pass
-
-Samples = []
-
-for F in Files: Samples.append(F)
 
 #Previously in InputVars.py
 # Select Variables To use in training
-FieldGroups = [
+Observables = [
     # energy scale
-    ['LP_pT', 'LP_E',
-     'LM_pT', 'LM_E'],
+    'LP_pT', 'LP_E',
+    'LM_pT', 'LM_E',
 
     # transverse angle
-    ['LP_phi', 'LM_phi'],
+    'LP_phi', 'LM_phi',
 
     # pseudorapidity
-    ['LP_eta', 'LM_eta'],
+    'LP_eta', 'LM_eta',
 ]
 
 SelectedFields = [
@@ -48,6 +41,7 @@ Config = {'MaxEvents':    50000,
           'Decay':           0.,
           'Momentum':        0.,
           'Nesterov':        0.,
+          'arrType': np.float32,
           'WeightInitialization':"'normal'"}
 
 Params = {'Width': [1024],
