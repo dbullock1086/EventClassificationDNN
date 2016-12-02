@@ -25,13 +25,25 @@ Train_X0 = Train_X.copy()
 Test_X0 = Test_X.copy()
 
 # Normalize Ranges within variable groups e.g. masses, angles (phi, eta, cos separately)
-for Fs in xrange(len(Observables)):
-    M = np.mean(Train_X0[Observables[Fs]])
-    V = np.var(Train_X0[Observables[Fs]])
-    yy = Train_X[Observables[Fs]]
-    yy[:] = (yy - M) / V + .5
-    yy1 = Train_X[Observables[Fs]]
-    yy1[:] = (yy1 - M) / V + .5
+#for Fs in xrange(len(Observables)):
+#    M = np.mean(Train_X0[Observables[Fs]])
+#    V = np.var(Train_X0[Observables[Fs]])
+#    yy = Train_X[Observables[Fs]]
+#    yy[:] = (yy - M) / V + .5
+#    yy1 = Train_X[Observables[Fs]]
+#    yy1[:] = (yy1 - M) / V + .5
+#    pass
+# IQR
+for obs in xrange(len(Observables)):
+    nanpct = numpy.nanpercentile (Train_X0[Observables[obs]], numpy.arange(2500,7500)/100.)
+    yy = Train_X[Observables[obs]]
+    yy1 = Train_x[Observables[obs]]
+    for itrv in xrange(len(yy)):
+        for itrw in xrange(len(nanpct)):
+            if nanpct[itrw] >= yy[itrv]: yy[itrv] = itrw/10000.
+            break
+        yy[itrv] = itrw/10000.
+        pass
     pass
 
 #Train_X_N = Train_X
