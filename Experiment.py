@@ -24,7 +24,7 @@ from EventClassificationDNN.MultiClassTools import *
 Train_X0 = Train_X.copy()
 Test_X0 = Test_X.copy()
 
-# Normalize Ranges within variable groups e.g. masses, angles (phi, eta, cos separately)
+# Normalize Ranges
 #for Fs in xrange(len(Observables)):
 #    M = np.mean(Train_X0[Observables[Fs]])
 #    V = np.var(Train_X0[Observables[Fs]])
@@ -33,16 +33,22 @@ Test_X0 = Test_X.copy()
 #    yy1 = Train_X[Observables[Fs]]
 #    yy1[:] = (yy1 - M) / V + .5
 #    pass
-# IQR
+#### IQR shifted to [0,1] (set outliers to -1)
 for obs in xrange(len(Observables)):
-    nanpct = numpy.nanpercentile (Train_X0[Observables[obs]], numpy.arange(2500,7500)/100.)
+    print 'Normalizing', Observables[obs], '...'
+    nanpct = numpy.nanpercentile (Train_X0[Observables[obs]], numpy.arange(2500,7501)/100.)
     yy = Train_X[Observables[obs]]
     yy1 = Train_x[Observables[obs]]
     for itrv in xrange(len(yy)):
+        val = yy[itrv]
         for itrw in xrange(len(nanpct)):
-            if nanpct[itrw] >= yy[itrv]: yy[itrv] = itrw/10000.
+            if nanpct[itrw] >= val:
+                weight = itrw/10000.
+                shift = 2. * weight - .5
+                yy[itrv] = itrw/10000.
+                pass
             break
-        yy[itrv] = itrw/10000.
+        yy[itrv] = -1.
         pass
     pass
 
