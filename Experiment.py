@@ -38,7 +38,7 @@ for obs in xrange(len(Observables)):
     print 'Normalizing', Observables[obs], '...'
     nanpct = numpy.nanpercentile (Train_X0[Observables[obs]], numpy.arange(2500,7501)/100.)
     yy = Train_X[Observables[obs]]
-    yy1 = Train_x[Observables[obs]]
+    yy1 = Train_X[Observables[obs]]
     for itrv in xrange(len(yy)):
         val = yy[itrv]
         for itrw in xrange(len(nanpct)):
