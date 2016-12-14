@@ -1,3 +1,7 @@
+import datetime
+a = datetime.datetime.now()
+print a.ctime()
+
 import os
 
 # Parse Arguments
@@ -24,31 +28,77 @@ from EventClassificationDNN.MultiClassTools import *
 Train_X0 = Train_X.copy()
 Test_X0 = Test_X.copy()
 
-# Normalize Ranges
-#for Fs in xrange(len(Observables)):
-#    M = np.mean(Train_X0[Observables[Fs]])
-#    V = np.var(Train_X0[Observables[Fs]])
-#    yy = Train_X[Observables[Fs]]
-#    yy[:] = (yy - M) / V + .5
-#    yy1 = Train_X[Observables[Fs]]
-#    yy1[:] = (yy1 - M) / V + .5
-#    pass
-#### IQR shifted to [0,1] (set outliers to -1)
-for obs in xrange(len(Observables)):
-    print 'Normalizing', Observables[obs], '...'
-    nanpct = numpy.nanpercentile (Train_X0[Observables[obs]], numpy.arange(2500,7501)/100.)
-    yy = Train_X[Observables[obs]]
-    yy1 = Train_X[Observables[obs]]
-    for itrv in xrange(len(yy)):
-        val = yy[itrv]
-        for itrw in xrange(len(nanpct)):
-            if nanpct[itrw] >= val:
-                weight = itrw/10000.
-                shift = 2. * weight - .5
-                yy[itrv] = itrw/10000.
+#### Normalization
+for scheme in Observables:
+    if scheme == 'Group':
+        for grp in Observables[scheme]:
+            Mins = []
+            Maxs = []
+            for obs in grp:
+                Mins.append ( np.min(Train_X0[obs]) )
+                Maxs.append ( np.max(Train_X0[obs]) )
                 pass
-            break
-        yy[itrv] = -1.
+            minval = min(Mins)
+            maxval = max(Maxs)
+            for obs in grp:
+                yy = Train_X[obs]
+                yy[:] = 1./(maxval-minval) * (yy-minval)
+                yy1 = Test_X[obs]
+                yy1[:] = 1./(maxval-minval) * (yy1-minval)
+                pass
+            pass
+        continue
+    for obs in Observables[scheme]:
+        print 'Normalizing', obs, 'to', scheme, '...'
+        yy = Train_X[obs]
+        yy1 = Train_X[obs]
+        if scheme == 'Gaus': # Gaus variance set to [0,1]
+            M = np.mean (Train_X0[obs])
+            V = np.var (Train_X0[obs])
+            yy[:] = (yy - M) / V + .5
+            yy1[:] = (yy1 - M) / V + .5
+            pass
+        else:
+            if scheme == 'Full':
+                lower = 0
+                upper = 10001
+                pass
+            elif scheme == 'LeftTrim':
+                lower = 2500
+                upper = 10001
+                pass
+            elif scheme == 'RightTrim':
+                lower = 0
+                upper = 7501
+                pass
+            elif scheme == 'IQR':
+                lower = 2500
+                upper = 7501
+                pass
+            nanpct = np.nanpercentile (Train_X0[obs], np.arange(lower,upper)/100.)
+            for itrv in xrange(len(yy)):
+                val = yy[itrv]
+                if np.isnan(val) or np.isinf(val) or np.isneginf(val): continue
+                for itrw in xrange(len(nanpct)):
+                    weight = (lower+itrw)/10000.
+                    if val >= weight:
+                        # left-trimmed range shifted to [0, 1]
+                        if scheme == 'LeftTrim': shift = 4. * (weight-.25) / 3.
+                        # right-trimmed range shifted to [0, 1]
+                        elif scheme == 'RightTrim': shift = 4. * weight / 3.
+                        # IQR shifted to [0, 1]
+                        elif scheme == 'IQR': shift = 2. * weight - .5
+                        # full range shifted to [0,1]
+                        else: shift = weight
+                        yy[itrv] = shift
+                        yy1[itrv] = shift
+                        pass
+                    break
+                # default to NaN
+                yy[itrv] = np.nan
+                yy1[itrv] = np.nan
+                pass
+            pass
         pass
     pass
 
@@ -130,3 +180,6 @@ if WriteResults:
     from EventClassificationDNN.CSVWriter import *
     CSVWriter (MyModel.OutDir+'/Result.csv', Test_X0, Test_Y, result, arrType)
     pass
+
+a = datetime.datetime.now()
+print a.ctime()

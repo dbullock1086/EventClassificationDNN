@@ -28,38 +28,32 @@ for InputData in InputFiles:
 # Select Variables To use in training
 
 # used for scaling
-Observables = [
-    # energy scale
-    'mP', 'mC', 'mX',
-    'METx', 'METy',
-    'L1_pT', 'L1_M',
-    'L2_pT','L2_M',
-    'B1_pT','B1_M',
-    'B2_pT','B2_M',
-    'MPP_AA', 'Eb_a_AA', 'Eb_b_AA', 'El_a_AA', 'El_b_AA',
-    'MPP_BB', 'Eb_a_BB', 'Eb_b_BB', 'El_a_BB', 'El_b_BB',
-    'MPP_AB', 'Eb_a_AB', 'Eb_b_AB', 'El_a_AB', 'El_b_AB',
-    'MPP_BA', 'Eb_a_BA', 'Eb_b_BA', 'El_a_BA', 'El_b_BA',
-
-    # pseudo rapidity
-    'L1_eta', 'L2_eta',  'B1_eta','B2_eta',
-
-    # azimutahl angle
-    'L1_phi', 'L2_phi','B1_phi', 'B2_phi',
-
-    # decay angles (by frame)
-    'cosPP_AA', 'cosPP_AB', 'cosPP_BA', 'cosPP_BB',
-    'cosPa_AA', 'cosPa_AB', 'cosPa_BA', 'cosPa_BB',
-    'cosPb_AA', 'cosPb_AB', 'cosPb_BA', 'cosPb_BB',
-    'cosCa_AA', 'cosCa_AB', 'cosCa_BA', 'cosCa_BB',
-    'cosCb_AA', 'cosCb_AB', 'cosCb_BA', 'cosCb_BB',
-
-    # separation angles (by frame)
-    'dphi_PP_Pa_AA', 'dphi_PP_Pa_BB', 'dphi_PP_Pa_AB', 'dphi_PP_Pa_BA',
-    'dphi_PP_Pb_AA', 'dphi_PP_Pb_BB', 'dphi_PP_Pb_AB', 'dphi_PP_Pb_BA',
-    'dphi_Pa_Ca_AA', 'dphi_Pa_Ca_BB', 'dphi_Pa_Ca_AB', 'dphi_Pa_Ca_BA',
-    'dphi_Pb_Cb_AA', 'dphi_Pb_Cb_BB', 'dphi_Pb_Cb_AB', 'dphi_Pb_Cb_BA',
-]
+Observables = {
+    # keep the full range
+    'Full': ['mP', 'mC', 'mX',
+             'L1_eta', 'L2_eta', 'B1_eta', 'B2_eta',
+             'L1_phi', 'L2_phi','B1_phi', 'B2_phi',
+             'cosPP_AA', 'cosPP_AB', 'cosPP_BA', 'cosPP_BB',
+             'cosPa_AA', 'cosPa_AB', 'cosPa_BA', 'cosPa_BB',
+             'cosPb_AA', 'cosPb_AB', 'cosPb_BA', 'cosPb_BB',
+             'cosCa_AA', 'cosCa_AB', 'cosCa_BA', 'cosCa_BB',
+             'cosCb_AA', 'cosCb_AB', 'cosCb_BA', 'cosCb_BB',
+             'dphi_PP_Pa_AA', 'dphi_PP_Pa_BB', 'dphi_PP_Pa_AB', 'dphi_PP_Pa_BA',
+             'dphi_PP_Pb_AA', 'dphi_PP_Pb_BB', 'dphi_PP_Pb_AB', 'dphi_PP_Pb_BA',
+             'dphi_Pa_Ca_AA', 'dphi_Pa_Ca_BB', 'dphi_Pa_Ca_AB', 'dphi_Pa_Ca_BA',
+             'dphi_Pb_Cb_AA', 'dphi_Pb_Cb_BB', 'dphi_Pb_Cb_AB', 'dphi_Pb_Cb_BA'],
+             
+    # keep IQR
+    'IQR': ['METx', 'METy',
+            'L1_pT', 'L1_M',
+            'L2_pT', 'L2_M',
+            'B1_pT', 'B1_M',
+            'B2_pT', 'B2_M',
+            'MPP_AA', 'Eb_a_AA', 'Eb_b_AA', 'El_a_AA', 'El_b_AA',
+            'MPP_BB', 'Eb_a_BB', 'Eb_b_BB', 'El_a_BB', 'El_b_BB',
+            'MPP_AB', 'Eb_a_AB', 'Eb_b_AB', 'El_a_AB', 'El_b_AB',
+            'MPP_BA', 'Eb_a_BA', 'Eb_b_BA', 'El_a_BA', 'El_b_BA'],
+}
 
 SelectedFields = [
     # all observables

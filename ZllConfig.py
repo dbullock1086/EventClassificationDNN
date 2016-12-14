@@ -14,39 +14,41 @@ for InputData in InputFiles:
 
 #Previously in InputVars.py
 # Select Variables To use in training
-Observables = [
-    # energy scale
-    'LP_pT', 'LP_E',
-    'LM_pT', 'LM_E',
-
-    # transverse angle
-    'LP_phi', 'LM_phi',
-
-    # pseudorapidity
-    'LP_eta', 'LM_eta',
-]
+Observables = {
+    # group similar
+    'Group': [
+        ['LP_pT', 'LP_E',
+         'LM_pT', 'LM_E'],
+        ['LP_phi', 'LM_phi'],
+        ['LP_eta', 'LM_eta'],
+    ],
+}
 
 SelectedFields = [
     # all variables
     ['LP_pT', 'LP_eta', 'LP_phi', 'LP_E',
      'LM_pT', 'LM_eta', 'LM_phi', 'LM_E'],
+
+    # known differences
+    ['LP_phi', 'LM_phi'],    
 ]
 
 Name = 'ZllModel'
 
 Config = {'MaxEvents':    50000,
-          'Epochs':       10000,
+          'Epochs':       1000,
           'BatchSize':   2048*8,
           'LearningRate': 0.005,
           'Decay':           0.,
           'Momentum':        0.,
           'Nesterov':        0.,
-          'arrType': np.float32,
           'WeightInitialization':"'normal'"}
 
-Params = {'Width': [1024],
-          'Depth': [2],
+Params = {'Width': [1585],
+          'Depth': [1],
           'loss': ["'categorical_crossentropy'"]}
+
+arrType = np.float32
 
 PS = Permutator (Params)
 Combos = PS.Permutations ()
