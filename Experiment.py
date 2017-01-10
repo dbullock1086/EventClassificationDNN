@@ -12,7 +12,9 @@ import numpy as np
 execfile (ConfigFile)
 
 if 'Config' in dir():
-    for a in Config: exec (a + '=' + str(Config[a]))
+    for a in Config:
+        if a != 'arrType': exec (a + '=' + str(Config[a]))
+        pass
     pass
 
 # Load the Data
@@ -28,79 +30,62 @@ from EventClassificationDNN.MultiClassTools import *
 Train_X0 = Train_X.copy()
 Test_X0 = Test_X.copy()
 
-#### Normalization
-for scheme in Observables:
-    if scheme == 'Group':
-        for grp in Observables[scheme]:
-            Mins = []
-            Maxs = []
-            for obs in grp:
-                Mins.append ( np.min(Train_X0[obs]) )
-                Maxs.append ( np.max(Train_X0[obs]) )
-                pass
-            minval = min(Mins)
-            maxval = max(Maxs)
-            for obs in grp:
-                yy = Train_X[obs]
-                yy[:] = 1./(maxval-minval) * (yy-minval)
-                yy1 = Test_X[obs]
-                yy1[:] = 1./(maxval-minval) * (yy1-minval)
-                pass
+#### Trimming
+print 'Trimming outliers from data ...'
+num = Train_X.shape[0]
+for obs in Observables:
+    if not Observables[obs].has_key('trim'): continue
+    print '   ', obs
+    if Observables[obs]['trim'][0] < 0: lower = -np.inf
+    else: lower = np.nanpercentile(Train_X[obs], Observables[obs]['trim'][0])
+    if Observables[obs]['trim'][1] > 100: upper = np.inf
+    else: upper = np.nanpercentile(Train_X[obs], Observables[obs]['trim'][1])
+    for evt in xrange(num):
+        val = Train_X[obs][evt]
+        if np.isnan(val) or np.isinf(val) or np.isneginf(val):
+            Train_X[obs][evt] = np.nan
             pass
-        continue
-    for obs in Observables[scheme]:
-        print 'Normalizing', obs, 'to', scheme, '...'
-        yy = Train_X[obs]
-        yy1 = Train_X[obs]
-        if scheme == 'Gaus': # Gaus variance set to [0,1]
-            M = np.mean (Train_X0[obs])
-            V = np.var (Train_X0[obs])
-            yy[:] = (yy - M) / V + .5
-            yy1[:] = (yy1 - M) / V + .5
+        elif val > upper:
+            Train_X[obs][evt] = np.nan
             pass
-        else:
-            if scheme == 'Full':
-                lower = 0
-                upper = 10001
-                pass
-            elif scheme == 'LeftTrim':
-                lower = 2500
-                upper = 10001
-                pass
-            elif scheme == 'RightTrim':
-                lower = 0
-                upper = 7501
-                pass
-            elif scheme == 'IQR':
-                lower = 2500
-                upper = 7501
-                pass
-            nanpct = np.nanpercentile (Train_X0[obs], np.arange(lower,upper)/100.)
-            for itrv in xrange(len(yy)):
-                val = yy[itrv]
-                if np.isnan(val) or np.isinf(val) or np.isneginf(val): continue
-                for itrw in xrange(len(nanpct)):
-                    weight = (lower+itrw)/10000.
-                    if val >= weight:
-                        # left-trimmed range shifted to [0, 1]
-                        if scheme == 'LeftTrim': shift = 4. * (weight-.25) / 3.
-                        # right-trimmed range shifted to [0, 1]
-                        elif scheme == 'RightTrim': shift = 4. * weight / 3.
-                        # IQR shifted to [0, 1]
-                        elif scheme == 'IQR': shift = 2. * weight - .5
-                        # full range shifted to [0,1]
-                        else: shift = weight
-                        yy[itrv] = shift
-                        yy1[itrv] = shift
-                        pass
-                    break
-                # default to NaN
-                yy[itrv] = np.nan
-                yy1[itrv] = np.nan
-                pass
+        elif val < lower:
+            Train_X[obs][val] = np.nan
             pass
         pass
     pass
+for evt in xrange(num):
+    if any(np.isnan(Train_X[obs][evt]) for obs in Observables):
+        for obs in Observables:
+            Train_X[obs][evt] = np.nan
+            pass
+        pass
+    pass
+
+#### Shifting/Scaling normalization
+print 'Normalizing', obs, '...'
+for obs in Observables:
+    print '   ', obs
+    if Observables[obs].has_key('range'):
+        minval = Observables[obs]['range'][0]
+        maxval = Observables[obs]['range'][1]
+        pass
+    else:
+        minval = np.min(Train_X[obs])
+        maxval = np.max(Train_X[obs])
+        pass
+    yy = Train_X[obs]
+    yy[:] = 1./(maxval-minval) * (yy-minval)
+    yy1 = Test_X[obs]
+    yy1[:] = 1./(maxval-minval) * (yy1-minval)
+    # gaus
+    yy = Train_X[obs]
+    yy1 = Train_X[obs]
+    M = np.mean (Train_X0[obs])
+    V = np.var (Train_X0[obs])
+    yy[:] = (yy - M) / V + .5
+    yy1[:] = (yy1 - M) / V + .5
+    pass
+pass
 
 #Train_X_N = Train_X
 
@@ -112,8 +97,8 @@ Test_X = Test_X[SelectedFields[VarSet]]
 
 # Now Lets Simplify the structure (Note this requires everything to be a float)
 # If you get an error that the input size isn't right, try changing float below to float32 or float64
-Train_X = Train_X.view(arrType).reshape(Train_X.shape + (-1,))
-Test_X = Test_X.view(arrType).reshape(Test_X.shape + (-1,))
+Train_X = Train_X.view(Config['arrType']).reshape(Train_X.shape + (-1,))
+Test_X = Test_X.view(Config['arrType']).reshape(Test_X.shape + (-1,))
 
 # Protect against divide by zero! 
 Train_X = np.nan_to_num(Train_X)

@@ -7,7 +7,7 @@ InputFiles = ['Zll.h5']
 # Select datasets (formerly TTrees in original ROOT file)
 Samples = []
 for InputData in InputFiles:
-    InputData = os.getenv('SampleDir') + '/' + InputData
+    InputData = os.getenv('SampleDirZll') + '/' + InputData
     Samples += [ [InputData, 'Zto2LOS'],
                  [InputData, 'Rndm2LOS'] ]
     pass
@@ -15,13 +15,15 @@ for InputData in InputFiles:
 #Previously in InputVars.py
 # Select Variables To use in training
 Observables = {
-    # group similar
-    'Group': [
-        ['LP_pT', 'LP_E',
-         'LM_pT', 'LM_E'],
-        ['LP_phi', 'LM_phi'],
-        ['LP_eta', 'LM_eta'],
-    ],
+    'LP_pT': {'trim': [0, 99]},
+    'LP_phi': {'range': [-np.pi, np.pi]},
+    'LP_eta': {'range': [-2.5, 2.5]},
+    'LP_E': {'trim': [0, 99]},
+
+    'LM_pT': {'trim': [0, 99]},
+    'LM_phi': {'range': [-np.pi, np.pi]},
+    'LM_eta': {'range': [-2.5, 2.5]},
+    'LM_E': {'trim': [0, 99]},
 }
 
 SelectedFields = [
@@ -36,7 +38,7 @@ SelectedFields = [
 Name = 'ZllModel'
 
 Config = {'MaxEvents':    50000,
-          'Epochs':       1000,
+          'Epochs':       5000,
           'BatchSize':   2048*8,
           'LearningRate': 0.005,
           'Decay':           0.,
