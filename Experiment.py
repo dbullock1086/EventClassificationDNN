@@ -78,12 +78,12 @@ for obs in Observables:
     yy1 = Test_X[obs]
     yy1[:] = 1./(maxval-minval) * (yy1-minval)
     # gaus
-    yy = Train_X[obs]
-    yy1 = Train_X[obs]
-    M = np.mean (Train_X0[obs])
-    V = np.var (Train_X0[obs])
-    yy[:] = (yy - M) / V + .5
-    yy1[:] = (yy1 - M) / V + .5
+    #yy = Train_X[obs]
+    #yy1 = Train_X[obs]
+    #M = np.mean (Train_X0[obs])
+    #V = np.var (Train_X0[obs])
+    #yy[:] = (yy - M) / V + .5
+    #yy1[:] = (yy1 - M) / V + .5
     pass
 pass
 
@@ -163,7 +163,7 @@ result = MultiClassificationAnalysis (MyModel, Test_X, Test_Y, BatchSize)
 if WriteResults:
     print 'Writing Results.'
     from EventClassificationDNN.CSVWriter import *
-    CSVWriter (MyModel.OutDir+'/Result.csv', Test_X0, Test_Y, result, arrType)
+    CSVWriter (MyModel.OutDir+'/Result.csv', Test_X0, Test_Y, result, Config['arrType'])
     pass
 
 a = datetime.datetime.now()

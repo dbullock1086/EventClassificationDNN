@@ -29,9 +29,9 @@ for InputData in InputFiles:
 
 # used for scaling
 Observables = {
-    'mP': {},
-    'mC': {},
-    'mX': {},
+    'mP': {'range': [1000, 1001]},
+    'mC': {'range': [150, 950]},
+    'mX': {'range': [100, 101]},
     'B1_pT': {'trim': [0, 99]},
     'B1_phi': {'range': [-np.pi, np.pi]},
     'B1_eta': {'range': [-2.5, 2.5]},
@@ -137,7 +137,7 @@ SelectedFields = [
      'B2_pT', 'B2_eta', 'B2_phi', 'B2_M'],
 
     # physics reconstruction
-    ['mP', 'mC', 'mX',
+    ['mC',
      'METx', 'METy',
      'L1_pT', 'L1_eta', 'L1_phi', 'L1_M',
      'L2_pT', 'L2_eta', 'L2_phi', 'L2_M',
