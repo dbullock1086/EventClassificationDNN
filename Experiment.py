@@ -30,60 +30,34 @@ from EventClassificationDNN.MultiClassTools import *
 Train_X0 = Train_X.copy()
 Test_X0 = Test_X.copy()
 
-#### Trimming
-print 'Trimming outliers from data ...'
-num = Train_X.shape[0]
-for obs in Observables:
-    if not Observables[obs].has_key('trim'): continue
-    print '   ', obs
-    if Observables[obs]['trim'][0] < 0: lower = -np.inf
-    else: lower = np.nanpercentile(Train_X[obs], Observables[obs]['trim'][0])
-    if Observables[obs]['trim'][1] > 100: upper = np.inf
-    else: upper = np.nanpercentile(Train_X[obs], Observables[obs]['trim'][1])
-    for evt in xrange(num):
-        val = Train_X[obs][evt]
-        if np.isnan(val) or np.isinf(val) or np.isneginf(val):
-            Train_X[obs][evt] = np.nan
-            pass
-        elif val > upper:
-            Train_X[obs][evt] = np.nan
-            pass
-        elif val < lower:
-            Train_X[obs][val] = np.nan
-            pass
-        pass
-    pass
-for evt in xrange(num):
-    if any(np.isnan(Train_X[obs][evt]) for obs in Observables):
-        for obs in Observables:
-            Train_X[obs][evt] = np.nan
-            pass
-        pass
-    pass
-
 #### Shifting/Scaling normalization
-print 'Normalizing', obs, '...'
+print 'Normalizing ...'
 for obs in Observables:
     print '   ', obs
-    if Observables[obs].has_key('range'):
-        minval = Observables[obs]['range'][0]
-        maxval = Observables[obs]['range'][1]
+    yy = Train_X[obs]
+    yy1 = Test_X[obs]
+    if Observables[obs].has_key('gaus'):
+        M = np.mean(Train_X[obs])
+        V = np.var(Test_X[obs])
+        yy[:] = (yy - M) / V + 0.5
+        yy1[:] = (yy1 - M) / V + 0.5
         pass
     else:
-        minval = np.min(Train_X[obs])
-        maxval = np.max(Train_X[obs])
+        if Observables[obs].has_key('trim'):
+            minval = np.nanpercentile(Train_X[obs], Observables[obs]['trim'][0])
+            maxval = np.nanpercentile(Train_X[obs], Observables[obs]['trim'][1])
+            pass
+        elif Observables[obs].has_key('range'):
+            minval = Observables[obs]['range'][0]
+            maxval = Observables[obs]['range'][1]
+            pass
+        else:
+            minval = np.min(Train_X[obs])
+            maxval = np.max(Train_X[obs])
+            pass
+        yy[:] = 1./(maxval-minval) * (yy-minval)
+        yy1[:] = 1./(maxval-minval) * (yy1-minval)
         pass
-    yy = Train_X[obs]
-    yy[:] = 1./(maxval-minval) * (yy-minval)
-    yy1 = Test_X[obs]
-    yy1[:] = 1./(maxval-minval) * (yy1-minval)
-    # gaus
-    #yy = Train_X[obs]
-    #yy1 = Train_X[obs]
-    #M = np.mean (Train_X0[obs])
-    #V = np.var (Train_X0[obs])
-    #yy[:] = (yy - M) / V + .5
-    #yy1[:] = (yy1 - M) / V + .5
     pass
 pass
 

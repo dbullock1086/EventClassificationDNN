@@ -15,15 +15,15 @@ for InputData in InputFiles:
 #Previously in InputVars.py
 # Select Variables To use in training
 Observables = {
-    'LP_pT': {'trim': [0, 99]},
+    'LP_pT':  {'trim':  [0, 99]},
     'LP_phi': {'range': [-np.pi, np.pi]},
     'LP_eta': {'range': [-2.5, 2.5]},
-    'LP_E': {'trim': [0, 99]},
+    'LP_E':   {'trim':  [0, 99]},
 
-    'LM_pT': {'trim': [0, 99]},
+    'LM_pT':  {'trim':  [0, 99]},
     'LM_phi': {'range': [-np.pi, np.pi]},
     'LM_eta': {'range': [-2.5, 2.5]},
-    'LM_E': {'trim': [0, 99]},
+    'LM_E':   {'trim':  [0, 99]},
 }
 
 SelectedFields = [
@@ -44,13 +44,13 @@ Config = {'MaxEvents':    50000,
           'Decay':           0.,
           'Momentum':        0.,
           'Nesterov':        0.,
+          'arrType' = np.float32,
           'WeightInitialization':"'normal'"}
 
-Params = {'Width': [1585],
+Params = {'Width': [1585, 100],
           'Depth': [1],
           'loss': ["'categorical_crossentropy'"]}
 
-arrType = np.float32
 
 PS = Permutator (Params)
 Combos = PS.Permutations ()
